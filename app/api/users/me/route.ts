@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserById } from '@/models/user.model';
+import { getCurrentUser } from '@/lib/controllers/user.controller';
 import { getUserIdFromRequest } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
@@ -9,15 +9,12 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const user = await getUserById(userId);
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    // Don't return the password hash
-    const { password_hash, ...userWithoutPassword } = user;
-    return NextResponse.json(userWithoutPassword);
+    const user = await getCurrentUser(userId);
+    return NextResponse.json(user);
   } catch (error) {
+    if (error instanceof Error && error.message === 'User not found') {
+      return NextResponse.json({ error: error.message }, { status: 404 });
+    }
     console.error('Get user me error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
