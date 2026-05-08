@@ -12,10 +12,11 @@ export async function POST(req: NextRequest) {
     const { token } = await loginUser(email, password);
 
     const response = NextResponse.json({ message: 'Login successful' }, { status: 200 });
-    response.cookies.set('token', token, {
+    response.cookies.set('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24 * 7, // 1 week
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7,
       path: '/',
     });
 
