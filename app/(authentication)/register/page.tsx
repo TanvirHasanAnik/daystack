@@ -3,11 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {z} from 'zod'
-
-const userSchema = z.object({
-    email: z.email(),
-    password: z.string().min(8)
-})
+import {userSchema} from "../schemas"
 
 type FormFields = z.infer<typeof userSchema>;
 
