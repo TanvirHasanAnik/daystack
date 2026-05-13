@@ -1,11 +1,56 @@
-export default function login() {
+'use client'
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from 'zod';
+import { loginSchema } from "../schemas";
+import { useLoginMutation } from "@/app/state/user/userApiSlice";
+import { useRouter } from "next/navigation";
+
+type FormFields = z.infer<typeof loginSchema>;
+
+export default function Login() {
+    const [loginApi, { isLoading }] = useLoginMutation();
+    const router = useRouter();
+    
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<FormFields>({
+        resolver: zodResolver(loginSchema),
+        mode: 'onBlur'
+    });
+
+    const onSubmit: SubmitHandler<FormFields> = async (data) => {
+        try {
+            await loginApi(data).unwrap();
+            router.push('/');
+        } catch (error: any) {
+            if (error?.data?.error) {
+                setError("root", {
+                    message: error.data.error
+                });
+            } else {
+                setError("root", {
+                    message: "Invalid email or password"
+                });
+            }
+        }
+    };
+
     return (
         <div className="login flex flex-col">
             <h1>Login</h1>
-            <form action="">
-                <input type="text" placeholder="example@mail.com"/>
-                <input type="text" placeholder="password"/>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input {...register("email")} type="text" placeholder="example@mail.com" />
+                {errors.email && <div className="text-red-500">{errors.email.message}</div>}
+                
+                <input {...register("password")} type="password" placeholder="password" />
+                {errors.password && <div className="text-red-500">{errors.password.message}</div>}
+                
+                <button disabled={isLoading} type="submit">
+                    {isLoading ? "Logging in..." : "Login"}
+                </button>
+                
+                {errors.root && <div className="text-red-500">{errors.root.message}</div>}
             </form>
         </div>
-    )
+    );
 }

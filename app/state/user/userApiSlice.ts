@@ -15,7 +15,7 @@ export const userApiSlice = createApi({
                 query: () => "/me",
                 providesTags: ["User"]
             }),
-            register:builder.mutation<User,void>({
+            register:builder.mutation<User, any>({
                 query: (requestData) => ({
                     url: "/register",
                     method: "POST",
@@ -23,7 +23,7 @@ export const userApiSlice = createApi({
                 }),
                 invalidatesTags: ["User"]
             }),
-            login:builder.mutation<User,void>({
+            login:builder.mutation<User, any>({
                 query: (requestData) => ({
                     url: "/login",
                     method: "POST",

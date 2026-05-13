@@ -4,17 +4,19 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 
 export interface User {
   id: number;
+  name: string;
   email: string;
   password_hash: string;
+  role: 'user' | 'admin';
   created_at: Date;
 }
 
-export async function createUser(email: string, password: string): Promise<number> {
+export async function createUser(name: string, email: string, password: string, role: 'user' | 'admin' = 'user'): Promise<number> {
   const hash = await bcrypt.hash(password, 10);
 
   const [result] = await pool.query<ResultSetHeader>(
-    'INSERT INTO users (email, password_hash) VALUES (?, ?)',
-    [email, hash]
+    'INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)',
+    [name, email, hash, role]
   );
 
   return result.insertId; 

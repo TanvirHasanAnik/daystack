@@ -2,13 +2,13 @@ import { createUser, getUserByEmail, getUserById } from '@/models/user.model';
 import { signToken } from '@/lib/jwt';
 import bcrypt from 'bcryptjs';
 
-export async function registerUser(email: string, password: string) {
+export async function registerUser(name: string, email: string, password: string) {
   const existingUser = await getUserByEmail(email);
   if (existingUser) {
     throw new Error('User already exists');
   }
 
-  const userId = await createUser(email, password);
+  const userId = await createUser(name, email, password);
   const token = signToken({ id: userId });
 
   return { userId, token };
