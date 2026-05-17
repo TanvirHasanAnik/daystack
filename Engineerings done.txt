@@ -1,0 +1,4 @@
+# MVC framework
+# React hook form + zod
+# Redux state management
+# RTQ query
