@@ -8,18 +8,14 @@ export default function DaystackLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-            <div className="daystack">
-            <TopBar />
-            <div className="flex">
-              <Sidebar/>
-              <main className="p-6 flex-1">{children}</main>
-            </div>
-            <Footer />
-            </div>
-      </body>
-    </html>
+    <div className="daystack">
+    <TopBar />
+    <div className="flex">
+      <Sidebar/>
+      <main className="p-6 flex-1">{children}</main>
+    </div>
+    <Footer />
+    </div>
   )
 }
           

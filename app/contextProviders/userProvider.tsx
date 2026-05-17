@@ -19,13 +19,14 @@ export default function UserProvider({
 
   const {
     data,
-    isLoading
+    isLoading,
+    isError
   } = useGetCurrentUserQuery();
 
   return (
     <UserContext.Provider
       value={{
-        user: data ?? null,
+        user: isError ? null : (data ?? null),
         isLoading
       }}
     >
