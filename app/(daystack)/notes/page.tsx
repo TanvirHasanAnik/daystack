@@ -1,6 +1,16 @@
-export default function Notes() {
+"use client";
 
-    return (
-        <h1>Notes</h1>
-    )
+import { useContext } from "react";
+import { UserContext } from "@/app/contextProviders/userProvider";
+import AuthSuggestion from "@/app/ui/common/authSuggestion";
+
+export default function Notes() {
+  const context = useContext(UserContext);
+  const user = context?.user;
+
+  return user ? (
+    <div>Notes</div>
+  ) : (
+    <AuthSuggestion feature="Notes" />
+  );
 }
