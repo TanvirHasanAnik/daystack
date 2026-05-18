@@ -11,7 +11,9 @@ export default function DaystackLayout({
     <div className="daystack">
     <TopBar />
     <div className="flex">
-      <Sidebar/>
+      <aside className="w-64 border-r p-4">
+        <Sidebar/>
+      </aside>
       <main className="p-6 flex-1">{children}</main>
     </div>
     <Footer />
