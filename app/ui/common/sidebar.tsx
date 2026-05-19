@@ -2,47 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const items = [
-  {
-    label: "Dashboard",
-    href: "/",
-  },
-  {
-    label: "To do",
-    href: "/todo",
-  },
-  {
-    label: "Notes",
-    href: "/notes",
-  },
-  {
-    label: "Habit Tracker",
-    href: "/habit-tracker",
-  },
-  {
-    label: "For Later",
-    href: "/for-later",
-  },
-  {
-    label: "Recurring Task",
-    href: "/recurring-task",
-  },
-  {
-    label: "Expense Tracker",
-    href: "/expense-tracker",
-  },
-  {
-    label: "Topic Tree",
-    href: "/topic-tree",
-  },
-];
+import { items } from "./navigationItems";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-      <nav className="space-y-2">
+    <div className="space-y-2">
+      <h1 className="pb-6 text-4xl font-bold tracking-tight bg-gradient-to-r from-[#5A3E2B] to-[#C4A484] bg-clip-text text-transparent">
+        Day Stack
+      </h1>
+      <hr className="border border-border my-4"/>
+      <nav>
         {items.map((item) => {
           const active = pathname === item.href;
 
@@ -61,5 +32,6 @@ export default function Sidebar() {
           );
         })}
       </nav>
+    </div>
   );
 }
