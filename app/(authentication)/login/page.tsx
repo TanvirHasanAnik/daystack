@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { loginSchema } from "../schemas";
 import { useLoginMutation } from "@/app/state/user/userApiSlice";
 import { useRouter } from "next/navigation";
+import PrimaryButton from "@/app/ui/common/primaryButton";
+import DayStackTitle from "@/app/ui/common/daystackTitle";
+
 
 type FormFields = z.infer<typeof loginSchema>;
 
@@ -36,21 +39,58 @@ export default function Login() {
     };
 
     return (
-        <div className="login flex flex-col">
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("email")} type="text" placeholder="example@mail.com" />
-                {errors.email && <div className="text-red-500">{errors.email.message}</div>}
-                
-                <input {...register("password")} type="password" placeholder="password" />
-                {errors.password && <div className="text-red-500">{errors.password.message}</div>}
-                
-                <button disabled={isLoading} type="submit">
-                    {isLoading ? "Logging in..." : "Login"}
-                </button>
-                
-                {errors.root && <div className="text-red-500">{errors.root.message}</div>}
+        <div className="login">
+            <div className="flex flex-col gap-3">
+                <h1 className="text-2xl font tracking-tight text-gray-700">
+                    Login to
+                </h1>
+                <DayStackTitle/>
+            </div>
+
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-4"
+            >
+                <div className="flex flex-col gap-1">
+                <input
+                    {...register("email")}
+                    type="text"
+                    placeholder="example@mail.com"
+                    className="w-full rounded-2xl border border-border/10 bg-input-bg px-4 py-3 outline-none focus:border-input-focus-border transition"
+                />
+                {errors.email && (
+                    <div className="text-red-500 text-sm">
+                    {errors.email.message}
+                    </div>
+                )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                <input
+                    {...register("password")}
+                    type="password"
+                    placeholder="password"
+                    
+                    className="w-full rounded-2xl border border-border/10 bg-input-bg px-4 py-3 outline-none focus:border-input-focus-border transition"
+                />
+                {errors.password && (
+                    <div className="text-red-500 text-sm">
+                    {errors.password.message}
+                    </div>
+                )}
+                </div>
+
+                <PrimaryButton disabled={isLoading} type="submit">
+                {isLoading ? "Logging in..." : "Login"}
+                </PrimaryButton>
+
+                {errors.root && (
+                <div className="text-red-500 text-sm">
+                    {errors.root.message}
+                </div>
+                )}
             </form>
+            <p onClick={() => {router.push("/register")}} className="cursor-pointer mt-5 tracking-tight text-gray-600 hover:text-black">Create a new account</p>
         </div>
     );
 }

@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { items } from "./navigationItems";
+import DayStackTitle from "./daystackTitle";
+
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
     <div className="space-y-2">
-      <h1 className="pb-6 text-4xl font-bold tracking-tight bg-gradient-to-r from-[#5A3E2B] to-[#C4A484] bg-clip-text text-transparent">
-        Day Stack
-      </h1>
+      <DayStackTitle/>
       <hr className="border border-border my-4"/>
       <nav>
         {items.map((item) => {

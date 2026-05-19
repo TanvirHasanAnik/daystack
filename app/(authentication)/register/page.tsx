@@ -1,11 +1,13 @@
 'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import {z} from 'zod'
-import {registerSchema} from "../schemas"
 import { useRegisterMutation } from "@/app/state/user/userApiSlice";
+import DayStackTitle from "@/app/ui/common/daystackTitle";
+import PrimaryButton from "@/app/ui/common/primaryButton";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from 'zod';
+import { registerSchema } from "../schemas";
 
 type FormFields = z.infer<typeof registerSchema>;
 
@@ -21,7 +23,7 @@ export default function RegisterUser() {
             await registerApi(data).unwrap();
             router.push('/');
         }catch(error: any){
-            if (error?.data?.error) {
+            if ( error?.data?.error) {
                 setError("root", {
                     message: error.data.error
                 });
@@ -34,19 +36,38 @@ export default function RegisterUser() {
     }
     return (
         <div className="login flex flex-col">
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("name")} type="text" placeholder="Your Name"/>
-                {errors.name && <div className="text-red-500">{errors.name.message}</div>}
-                <input {...register("email")} type="text" placeholder="example@mail.com"/>
-                {errors.email && <div className="text-red-500">{errors.email.message}</div>}
-                <input {...register("password")} type="password" placeholder="password"/>
-                {errors.password && <div className="text-red-500">{errors.password.message}</div>}
-                <button disabled={isLoading} type="submit">
-                    {isLoading ? "Loading..." : "Submit"}
-                </button>
+            
+            <div className="flex flex-col gap-3">
+                <h1 className="text-2xl font tracking-tight text-gray-700">
+                    Register to
+                </h1>
+                <DayStackTitle/>
+            </div>
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex flex-col gap-1">
+                    <input {...register("name")} type="text" placeholder="Name"
+                    className="w-full rounded-2xl border border-border/10 bg-input-bg px-4 py-3 outline-none focus:border-input-focus-border transition"
+                    />
+                    {errors.name && <div className="text-red-500">{errors.name.message}</div>}
+                </div>
+                <div className="flex flex-col gap-1">
+                    <input {...register("email")} type="text" placeholder="example@mail.com"
+                    className="w-full rounded-2xl border border-border/10 bg-input-bg px-4 py-3 outline-none focus:border-input-focus-border transition"
+                    />
+                    {errors.email && <div className="text-red-500">{errors.email.message}</div>}
+                </div>
+                <div className="flex flex-col gap-1">
+                    <input {...register("password")} type="password" placeholder="password"
+                    className="w-full rounded-2xl border border-border/10 bg-input-bg px-4 py-3 outline-none focus:border-input-focus-border transition"
+                    />
+                    {errors.password && <div className="text-red-500">{errors.password.message}</div>}
+                </div>
+                <PrimaryButton disabled={isLoading} type="submit">
+                    {isLoading ? "Loading..." : "Create Account"}
+                </PrimaryButton>
                 {errors.root && <div className="text-red-500">{errors.root.message}</div>}
             </form>
+            <p onClick={() => {router.push("/login")}} className="cursor-pointer mt-5 tracking-tight text-gray-600 hover:text-black">Already have an account?</p>
         </div>
     )
 }
