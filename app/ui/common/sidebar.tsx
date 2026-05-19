@@ -13,7 +13,7 @@ export default function Sidebar() {
     <div className="space-y-2">
       <DayStackTitle/>
       <hr className="border border-border my-4"/>
-      <nav>
+      <nav className="space-y-2">
         {items.map((item) => {
           const active = pathname === item.href;
 
@@ -21,10 +21,10 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`block rounded p-2 ${
+              className={`w-full block rounded-2xl px-4 py-3 ${
                 active
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-gradient-to-r from-[#5A3E2B] to-[#C4A484] text-white"
+                  : "hover:bg-black/5 transition"
               }`}
             >
               {item.label}

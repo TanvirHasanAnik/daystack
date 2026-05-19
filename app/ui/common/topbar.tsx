@@ -5,6 +5,8 @@ import { useLogoutMutation } from "@/app/state/user/userApiSlice";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 import { items } from "./navigationItems";
+import PrimaryButton from "./primaryButton";
+
 
 
 export default function TopBar(){
@@ -33,8 +35,14 @@ export default function TopBar(){
                 {currentLabel}
             </h2>
             <div className="flex items-center gap-4">
-                {user && <span><strong>{user.name}</strong></span>}
-            <button disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "logout" : "login"}</button>
+                {user && 
+                <span className="inline-flex items-center rounded-xl px-3 py-1 text-sm font-medium bg-blue-50 text-blue-900 border-2 border-dotted border-blue-300">
+                    {user.name}
+                </span>
+                }
+            <PrimaryButton disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "logout" : "login"}
+
+            </PrimaryButton>
             </div>
         </div>
     )
