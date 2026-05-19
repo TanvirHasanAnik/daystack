@@ -24,14 +24,14 @@ export default function TopBar(){
     }
 
     return (
-        <div className="h-20 bg-blue-200 flex items-center justify-between px-6">
+        <div className="h-20 flex items-center justify-between p-6">
             <div>This is topBar</div>
             {user && (
                 <div className="flex items-center gap-4">
-                    <span>Welcome, <strong>{user.name}</strong> ({user.role})</span>
+                    <span><strong>{user.name}</strong></span>
+                <button disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "logout" : "login"}</button>
                 </div>
             )}
-            <button disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "logout" : "login"}</button>
         </div>
     )
 }

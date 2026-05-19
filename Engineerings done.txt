@@ -2,3 +2,4 @@
 # React hook form + zod
 # Redux state management
 # RTQ query
+# Tailwind Theme mapping with custom css variable
