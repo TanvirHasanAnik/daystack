@@ -1,34 +1,12 @@
+import { Home, CheckSquare, FileText, Calendar, Bookmark, Repeat, DollarSign, Network } from "lucide-react";
+
 export const items = [
-  {
-    label: "Dashboard",
-    href: "/",
-  },
-  {
-    label: "To do",
-    href: "/todo",
-  },
-  {
-    label: "Notes",
-    href: "/notes",
-  },
-  {
-    label: "Habit Tracker",
-    href: "/habit-tracker",
-  },
-  {
-    label: "For Later",
-    href: "/for-later",
-  },
-  {
-    label: "Recurring Task",
-    href: "/recurring-task",
-  },
-  {
-    label: "Expense Tracker",
-    href: "/expense-tracker",
-  },
-  {
-    label: "Topic Tree",
-    href: "/topic-tree",
-  },
+  { label: "Dashboard", href: "/", icon: Home },
+  { label: "To do", href: "/todo", icon: CheckSquare },
+  { label: "Notes", href: "/notes", icon: FileText },
+  { label: "Habit Tracker", href: "/habit-tracker", icon: Calendar },
+  { label: "For Later", href: "/for-later", icon: Bookmark },
+  { label: "Recurring Task", href: "/recurring-task", icon: Repeat },
+  { label: "Expense Tracker", href: "/expense-tracker", icon: DollarSign },
+  { label: "Topic Tree", href: "/topic-tree", icon: Network },
 ];

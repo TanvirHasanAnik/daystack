@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 import { items } from "./navigationItems";
 import PrimaryButton from "./primaryButton";
+import { User, LogOut, LogIn } from "lucide-react";
+import IconLabel from "./iconLabel";
 
 
 
@@ -37,13 +39,13 @@ export default function TopBar(){
             <div className="flex items-center gap-4">
                 {user && 
                 <span className="inline-flex items-center rounded-xl px-3 py-1 text-sm font-medium bg-blue-50 text-blue-900 border-2 border-dotted border-blue-300">
-                    {user.name}
+                    <IconLabel icon={User} text={user.name}/>
                 </span>
                 }
             <button 
             className="cursor-pointer border border-border rounded-xl px-3 py-1 bg-gray-100 text-gray-800 hover:bg-button-primary hover:text-button-primary-text"
-            disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "Logout" : "login"}
-
+            disabled={isLoading} onClick={user ? handleLogout : handleLogin}>
+                {user ? (<IconLabel icon={LogOut} text="Logout"/>) : (<IconLabel icon={LogIn} text="Login"/>)}
             </button>
             </div>
         </div>

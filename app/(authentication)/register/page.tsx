@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import { registerSchema } from "../schemas";
+import { UserPlus  } from "lucide-react";
 
 type FormFields = z.infer<typeof registerSchema>;
 
@@ -62,7 +63,7 @@ export default function RegisterUser() {
                     />
                     {errors.password && <div className="text-red-500">{errors.password.message}</div>}
                 </div>
-                <PrimaryButton disabled={isLoading} type="submit">
+                <PrimaryButton icon={UserPlus} disabled={isLoading} type="submit">
                     {isLoading ? "Loading..." : "Create Account"}
                 </PrimaryButton>
                 {errors.root && <div className="text-red-500">{errors.root.message}</div>}

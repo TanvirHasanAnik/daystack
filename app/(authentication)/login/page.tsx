@@ -8,6 +8,7 @@ import { useLoginMutation } from "@/app/state/user/userApiSlice";
 import { useRouter } from "next/navigation";
 import PrimaryButton from "@/app/ui/common/primaryButton";
 import DayStackTitle from "@/app/ui/common/daystackTitle";
+import { LogIn } from "lucide-react";
 
 
 type FormFields = z.infer<typeof loginSchema>;
@@ -80,7 +81,7 @@ export default function Login() {
                 )}
                 </div>
 
-                <PrimaryButton disabled={isLoading} type="submit">
+                <PrimaryButton icon={LogIn} disabled={isLoading} type="submit">
                 {isLoading ? "Logging in..." : "Login"}
                 </PrimaryButton>
 
