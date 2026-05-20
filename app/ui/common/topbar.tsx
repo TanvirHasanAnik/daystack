@@ -40,9 +40,11 @@ export default function TopBar(){
                     {user.name}
                 </span>
                 }
-            <PrimaryButton disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "logout" : "login"}
+            <button 
+            className="cursor-pointer border border-border rounded-xl px-3 py-1 bg-gray-100 text-gray-800 hover:bg-button-primary hover:text-button-primary-text"
+            disabled={isLoading} onClick={user ? handleLogout : handleLogin}>{user ? "Logout" : "login"}
 
-            </PrimaryButton>
+            </button>
             </div>
         </div>
     )
