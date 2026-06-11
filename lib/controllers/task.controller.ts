@@ -5,8 +5,8 @@ import {
   deleteTask 
 } from '@/models/task.model';
 
-export async function fetchUserTasks(userId: number) {
-  return await getTasksByUser(userId);
+export async function fetchUserTasks(userId: number, limit: number = 10, cursor?: number) {
+  return await getTasksByUser(userId, limit, cursor);
 }
 
 export async function createNewTask(userId: number, title: string, description?: string, deadline?: string) {

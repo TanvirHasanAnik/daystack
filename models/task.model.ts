@@ -24,12 +24,28 @@ export async function createTask(
   return result.insertId;
 }
 
-export async function getTasksByUser(user_id: number): Promise<Task[]> {
-  const [rows] = await pool.query<RowDataPacket[]>(
-    'SELECT * FROM tasks WHERE user_id = ? ORDER BY created_at DESC',
-    [user_id]
-  );
-  return rows as Task[];
+export async function getTasksByUser(user_id: number, limit: number = 10, cursor?: number): Promise<{ tasks: Task[], nextCursor: number | null }> {
+  let query = 'SELECT * FROM tasks WHERE user_id = ?';
+  const params: any[] = [user_id];
+
+  if (cursor) {
+    query += ' AND id < ?';
+    params.push(cursor);
+  }
+
+  query += ' ORDER BY id DESC LIMIT ?';
+  params.push(limit + 1);
+
+  const [rows] = await pool.query<RowDataPacket[]>(query, params);
+  const tasks = rows as Task[];
+  
+  let nextCursor: number | null = null;
+  if (tasks.length > limit) {
+    const lastItem = tasks.pop();
+    nextCursor = lastItem!.id;
+  }
+
+  return { tasks, nextCursor };
 }
 
 export async function getTaskById(user_id: number, task_id: number): Promise<Task | null> {

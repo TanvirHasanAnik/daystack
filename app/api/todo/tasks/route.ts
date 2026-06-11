@@ -8,9 +8,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const { searchParams } = new URL(req.url);
+  const limit = parseInt(searchParams.get('limit') || '10');
+  const cursor = searchParams.get('cursor') ? parseInt(searchParams.get('cursor')!) : undefined;
+
   try {
-    const tasks = await fetchUserTasks(userId);
-    return NextResponse.json(tasks);
+    const result = await fetchUserTasks(userId, limit, cursor);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Get tasks error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

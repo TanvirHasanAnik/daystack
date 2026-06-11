@@ -10,7 +10,7 @@ export default function Todo() {
   const user = context?.user;
 
   return user ? (
-    <div>To do</div>
+    <TaskList/>
   ) : (
     <AuthSuggestion feature="To do" />
   );
